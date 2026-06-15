@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L2 Olympiads - Ranking</title>
+    <title>DONTCRYL2 - Ranking</title>
     <style>
         * {
             margin: 0;
@@ -12,162 +12,201 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-            background: linear-gradient(135deg, #1e1e2e 0%, #16213e 100%);
-            color: #e0e0e0;
-            line-height: 1.6;
+            font-family: Inter, 'Segoe UI', sans-serif;
+            background: #090d16;
+            color: #e8eef8;
+            line-height: 1.5;
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(52, 106, 255, 0.18), transparent 24%),
+                        radial-gradient(circle at top right, rgba(0, 255, 205, 0.12), transparent 20%),
+                        radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.06), transparent 22%);
+            pointer-events: none;
+            z-index: -1;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
         }
 
         header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px 0;
+            margin-bottom: 30px;
+            padding: 10px 0 24px;
+        }
+
+        .page-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: #7c95b8;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+        }
+
+        .page-label::before {
+            content: '';
+            width: 34px;
+            height: 1px;
+            background: linear-gradient(90deg, #00a8ff, #7b79ff);
         }
 
         header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #00d4ff, #0099ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: clamp(2.75rem, 4vw, 4.5rem);
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+            margin-bottom: 16px;
         }
 
         header p {
-            font-size: 1.1em;
-            color: #b0b0b0;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #a8b8d6;
+            font-size: 1rem;
         }
 
-        .controls {
+        .top-controls {
             display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 30px;
             flex-wrap: wrap;
+            gap: 14px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
         }
 
-        input[type="text"],
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        input[type="text"] {
-            background: #2a2a3e;
-            color: #e0e0e0;
-            border: 1px solid #00d4ff;
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             flex: 1;
-            min-width: 200px;
-            max-width: 300px;
+            min-width: 280px;
+            background: rgba(14, 21, 45, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 12px 16px;
+            backdrop-filter: blur(12px);
         }
 
-        input[type="text"]::placeholder {
-            color: #808080;
-        }
-
-        input[type="text"]:focus {
+        .search-box input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: #eef2ff;
+            font-size: 1rem;
             outline: none;
-            border-color: #0099ff;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
         }
 
-        button {
-            background: linear-gradient(45deg, #00d4ff, #0099ff);
-            color: #000;
-            font-weight: bold;
-            padding: 10px 30px;
+        .search-box input::placeholder {
+            color: #7b8bbd;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        .btn-primary {
+            border: 1px solid rgba(0, 154, 255, 0.35);
+            background: rgba(0, 154, 255, 0.12);
+            color: #d8ecff;
+            padding: 12px 24px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            background: rgba(0, 154, 255, 0.22);
         }
 
         .info {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #808080;
-            font-size: 0.9em;
+            display: flex;
+            justify-content: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: #7b8bbd;
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+        }
+
+        .info strong {
+            color: #d8ecff;
         }
 
         .classes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 22px;
         }
 
         .class-card {
-            background: #252538;
-            border-radius: 10px;
+            background: rgba(13, 20, 38, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 26px;
             overflow: hidden;
-            border-left: 4px solid #00d4ff;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.18);
+            transition: transform 0.25s ease, border-color 0.25s ease;
         }
 
         .class-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
+            transform: translateY(-6px);
+            border-color: rgba(0, 154, 255, 0.35);
         }
 
         .class-header {
-            background: linear-gradient(45deg, #00d4ff, #0099ff);
-            padding: 20px;
-            color: #000;
-            font-weight: bold;
+            padding: 22px 24px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .class-id {
-            font-size: 0.8em;
-            opacity: 0.8;
+            text-transform: uppercase;
+            color: #6c83ab;
+            font-size: 0.78rem;
+            letter-spacing: 0.16em;
+            margin-bottom: 8px;
         }
 
         .class-name {
-            font-size: 1.5em;
-            margin: 5px 0;
+            font-size: 1.45rem;
+            color: #f5f9ff;
+            letter-spacing: 0.04em;
         }
 
         .leader-section {
-            padding: 20px;
-            border-bottom: 1px solid #3a3a4e;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .leader-info {
-            flex: 1;
+            padding: 18px 24px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .leader-label {
-            font-size: 0.85em;
-            opacity: 0.7;
+            color: #94a5c4;
+            font-size: 0.78rem;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            letter-spacing: 0.18em;
+            margin-bottom: 6px;
         }
 
         .leader-name {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #00d4ff;
+            color: #ffffff;
+            font-size: 1.15rem;
+            font-weight: 700;
         }
 
         .leader-points {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #ffd700;
+            align-self: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #58c9ff;
+            text-align: right;
         }
 
         table {
@@ -175,89 +214,78 @@
             border-collapse: collapse;
         }
 
-        table tbody {
-            display: block;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        table thead,
-        table tbody tr {
-            display: table;
-            width: 100%;
-            table-layout: fixed;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-            font-size: 0.9em;
-        }
-
-        th {
-            background: #1a1a2e;
-            color: #00d4ff;
-            font-weight: bold;
+        thead th {
+            font-size: 0.78rem;
             text-transform: uppercase;
-            padding: 15px 12px;
+            letter-spacing: 0.24em;
+            color: #90a5c7;
+            padding: 16px 18px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.04);
         }
 
         td {
-            border-bottom: 1px solid #3a3a4e;
+            padding: 14px 18px;
+            color: #c8d2ea;
+            font-size: 0.95rem;
+            text-align: center;
         }
 
-        tr:hover {
-            background: rgba(0, 212, 255, 0.1);
-        }
-
-        .rank {
-            color: #ffd700;
-            font-weight: bold;
-        }
-
-        .rank-1 {
-            color: #ffd700;
-        }
-
-        .rank-2 {
-            color: #c0c0c0;
-        }
-
-        .rank-3 {
-            color: #cd7f32;
+        td:first-child {
+            font-weight: 700;
+            color: #fff;
         }
 
         .player-name {
-            color: #00d4ff;
+            color: #e9f2ff;
+            text-align: left;
         }
 
         .class-footer {
-            padding: 15px 20px;
-            background: #1a1a2e;
-            font-size: 0.85em;
-            color: #808080;
+            padding: 14px 22px 20px;
+            color: #7b8bbd;
+            font-size: 0.85rem;
         }
 
         .last-update {
-            font-style: italic;
+            display: block;
+            margin-top: 2px;
         }
 
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8em;
+        @media (max-width: 900px) {
+            .top-controls {
+                flex-direction: column;
+                align-items: stretch;
             }
 
-            .classes-grid {
+            .btn-primary {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 680px) {
+            body {
+                padding: 16px;
+            }
+
+            .class-card {
+                border-radius: 20px;
+            }
+
+            .leader-section {
                 grid-template-columns: 1fr;
+                text-align: left;
             }
 
-            th, td {
-                padding: 8px 4px;
-                font-size: 0.8em;
-            }
-
-            table tbody {
-                max-height: 250px;
+            td, thead th {
+                padding: 12px 14px;
             }
         }
 
@@ -266,29 +294,30 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #1a1a2e;
+            background: transparent;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #00d4ff;
-            border-radius: 4px;
+            background: rgba(92, 176, 255, 0.35);
+            border-radius: 999px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #0099ff;
+            background: rgba(92, 176, 255, 0.55);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>L2 OLYMPIADS</h1>
-            <p>Ranking de Competição por Classe</p>
+            <div class="page-label">DONTCRYL2</div>
         </header>
 
-        <div class="controls">
-            <input type="text" id="searchInput" placeholder="Buscar classe ou jogador">
-            <button onclick="updateRanking()">Atualizar Ranking</button>
+        <div class="top-controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar classe ou jogador...">
+            </div>
+            <button class="btn-primary" onclick="updateRanking()">Atualizar ranking</button>
         </div>
 
         <div class="info">
@@ -472,11 +501,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Nome</th>
+                                <th>Jogador</th>
                                 <th>Pts</th>
-                                <th>K·D</th>
-                                <th>Matches</th>
-                                <th>%</th>
+                                <th>V/D</th>
+                                <th>Jogos</th>
+                                <th>WR</th>
                             </tr>
                         </thead>
                         <tbody>
